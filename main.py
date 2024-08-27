@@ -1,18 +1,21 @@
 import telebot
+from flask import Flask, request
 
-# Telegram bot tokenini bu yerga kiriting
-TOKEN = "7345533909:AAG9iYq9nLMXv0NjYoCgCH7leOT1yaR1kwU"
+app = Flask(__name__)
 
+TOKEN = "7459499876:AAE-ph1h4V6xDu4A10Ag_4JNVl7OeajSY2s"
 bot = telebot.TeleBot(TOKEN)
 
-# Salom desa javob beradigan funksiyani yozamiz
-@bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-    bot.reply_to(message, "Salom! Qanday yordam bera olaman?")
+@app.route('/' + TOKEN, methods=['POST'])
+def getMessage():
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "!", 200
 
-@bot.message_handler(func=lambda message: message.text.lower() == 'salom')
-def greet(message):
-    bot.reply_to(message, "Salom!")
+@app.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://YOUR_DOMAIN/' + TOKEN)
+    return "Webhook set!", 200
 
-# Botni ishga tushiramiz
-bot.polling()
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
