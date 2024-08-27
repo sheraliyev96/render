@@ -1,9 +1,9 @@
-import telebot
+import os
 from flask import Flask, request
 
 app = Flask(__name__)
 
-TOKEN = "7459499876:AAE-ph1h4V6xDu4A10Ag_4JNVl7OeajSY2s"
+TOKEN = "7345533909:AAG9iYq9nLMXv0NjYoCgCH7leOT1yaR1kwU"
 bot = telebot.TeleBot(TOKEN)
 
 @app.route('/' + TOKEN, methods=['POST'])
