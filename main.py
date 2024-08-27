@@ -15,7 +15,7 @@ def getMessage():
 @app.route("/")
 def webhook():
     bot.remove_webhook()
-    bot.set_webhook(url='https://YOUR_DOMAIN/' + TOKEN)
+    bot.set_webhook(url='https://render-zwwn.onrender.com/' + TOKEN)
     return "Webhook set!", 200
 
 if __name__ == "__main__":
