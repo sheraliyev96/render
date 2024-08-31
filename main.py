@@ -2,7 +2,7 @@ import time
 import telebot
 
 API_TOKEN = '7517940619:AAFM8sfVjLLcsDIaWwaP81F1rw0kq4CsL78'
-CHANNEL_ID = '@ahlsnov1'  # Kanal ID'si
+CHANNEL_ID = '@ahlkanal1'  # Kanal ID'si
 bot = telebot.TeleBot(API_TOKEN)
 
 last_message_id = None
