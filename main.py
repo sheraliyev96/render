@@ -1,22 +1,22 @@
-import os
+import time
 import telebot
-from flask import Flask, request
 
-app = Flask(__name__)
+API_TOKEN = '7517940619:AAFM8sfVjLLcsDIaWwaP81F1rw0kq4CsL78'
+CHANNEL_ID = '@ahlsnov1'  # Kanal ID'si
+bot = telebot.TeleBot(API_TOKEN)
 
-TOKEN = "7517652215:AAHVSZcqJ8nZ4jwY19ZAqQTx6h232GtKCpg"
-bot = telebot.TeleBot(TOKEN)
+last_message_id = None
 
-@app.route('/' + TOKEN, methods=['POST'])
-def getMessage():
-    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-    return "!", 200
-
-@app.route("/")
-def webhook():
-    bot.remove_webhook()
-    bot.set_webhook(url='https://render-zwwn.onrender.com/' + TOKEN)
-    return "Webhook set!", 200
+def send_and_delete_message():
+    global last_message_id
+    # Avvalgi xabarni o'chirish
+    if last_message_id:
+        bot.delete_message(CHANNEL_ID, last_message_id)
+    # Yangi xabarni yuborish
+    sent_message = bot.send_message(CHANNEL_ID, "Salom")
+    last_message_id = sent_message.message_id
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
+    while True:
+        send_and_delete_message()
+        time.sleep(600)  # 10 daqiqa kutish (600 soniya)
