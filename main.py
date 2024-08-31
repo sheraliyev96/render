@@ -19,4 +19,4 @@ def send_and_delete_message():
 if __name__ == "__main__":
     while True:
         send_and_delete_message()
-        time.sleep(60)  # 10 daqiqa kutish (600 soniya)
+        time.sleep(6)  # 10 daqiqa kutish (600 soniya)
